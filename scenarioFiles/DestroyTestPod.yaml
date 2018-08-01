@@ -1,0 +1,8 @@
+name: Delete random test pods
+description: Demonstrates how to affect a subset of Pods out of a pool of matches.
+chaosevents:
+  - description: Deleting two random chaos-test-dummy
+    engine: kubernetes
+    target: chaos-test/chaos-test-dummy
+    operation: delete
+    quantity: 2

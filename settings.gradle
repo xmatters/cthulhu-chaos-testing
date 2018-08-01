@@ -1,0 +1,6 @@
+rootProject.name = 'cthulhu'
+include 'api'
+include 'google-cloud'
+include 'kubernetes'
+include 'slack-notifications'
+
