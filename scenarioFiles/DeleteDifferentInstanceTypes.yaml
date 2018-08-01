@@ -1,0 +1,19 @@
+name: Delete different instance types
+description: Demonstrates how to define multiple chaos events.
+chaosevents:
+  - description: Deleting two random chaos-test-dummy pods every second.
+    engine: kubernetes
+    target: chaos-test/chaos-test-dummy
+    operation: delete
+    quantity: 2
+    schedule:
+      delay: 1s
+      repeat: 60
+  - description: Deleting a chaos-test-dummy vm every four seconds.
+    engine: gcp-compute
+    target: .*/chaos-test-dummy
+    operation: delete
+    quantity: 1
+    schedule:
+      delay: 4s
+      repeat: 15

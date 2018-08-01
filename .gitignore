@@ -1,0 +1,31 @@
+.DS_Store
+.gradle
+out/
+build/
+docker/
+*.log
+!gradle/wrapper/gradle-wrapper.jar
+application-overrides.properties
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/

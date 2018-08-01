@@ -1,0 +1,8 @@
+name: Delete random test vms
+description: Demonstrates how to affect a subset of VMs out of a pool of matches.
+chaosevents:
+  - description: Deleting two random chaos-test-dummy
+    engine: gcp-compute
+    target: .*/chaos-test-dummy
+    operation: delete
+    quantity: 2

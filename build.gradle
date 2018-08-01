@@ -1,0 +1,88 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.4.RELEASE'
+    }
+
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "gradle.plugin.com.hierynomus.gradle.plugins:license-gradle-plugin:0.15.0"
+    }
+}
+
+apply plugin: 'base'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'com.github.hierynomus.license'
+
+sourceCompatibility = 1.8
+
+if (!hasProperty('mainClass')) {
+    ext.mainClass = 'com.xmatters.testing.cthulhu.Cthulhu'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://repo.spring.io/milestone" }
+}
+
+dependencies {
+    compile project(':api')
+    compile project(':google-cloud')
+    compile project(':kubernetes')
+    compile project(':slack-notifications')
+
+    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.9.6'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.6'
+    compile group: 'com.google.guava', name: 'guava', version: '18.0'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+    compile group: 'org.reflections', name: 'reflections', version: '0.9.10'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter', version: "${springBootVersion}"
+    compile group: 'me.atrox.haikunator', name: 'Haikunator', version: '1.3'
+
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+}
+
+classes.mustRunAfter(clean)
+
+bootRun {
+    standardInput = System.in
+}
+
+bootJar {
+    if (project.environment == 'docker') {
+        sourceSets {
+            main {
+                resources {
+                    exclude 'application-overrides.properties'
+                    exclude 'application-overrides-template.properties'
+                }
+            }
+        }
+    }
+}
+
+task prepareDocker(dependsOn: [clean, build, test, bootJar]) {
+    doLast {
+        def dockerRoot = 'docker'
+
+        delete "$dockerRoot/*.jar"
+
+        copy {
+            from "${libsDir}"
+            into "${dockerRoot}"
+            include "${project.name}-${version}.jar"
+            rename "${project.name}-${version}.jar", "${project.name}.jar"
+        }
+    }
+}
