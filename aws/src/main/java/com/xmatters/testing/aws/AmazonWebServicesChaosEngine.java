@@ -1,6 +1,7 @@
 package com.xmatters.testing.aws;
 
 import java.util.Map;
+import java.util.function.Consumer;
 
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 
@@ -37,10 +38,19 @@ public class AmazonWebServicesChaosEngine extends ChaosEngine {
 
     @OperationName("delete")
     public void deleteVm(String[] targets) {
+        tryForEachTarget(targets, "Deleting instance:", target -> connector.delete(target));
+    }
+
+    @OperationName("stop")
+    public void stopVm(String[] targets) {
+        tryForEachTarget(targets, "Stopping instance:", target -> connector.stop(target));
+    }
+
+    private void tryForEachTarget(String[] targets, String message, Consumer<String> action) {
         for (String target : targets) {
-            this.sendUpdate(UpdateType.INFO, "Deleting instance:", target);
+            this.sendUpdate(UpdateType.INFO, message, target);
             try {
-                connector.delete(target);
+                action.accept(target);
             } catch (Ec2Exception e) {
                 this.sendUpdate(UpdateType.ERROR, e.toString());
             }

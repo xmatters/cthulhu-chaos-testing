@@ -18,7 +18,8 @@ public class DebugRunner {
             setTarget(".*/chaos-test-dummy");
         }};
         String[] targets = runner.getTargets(ev);
-        runner.deleteVm(targets);
+        // runner.deleteVm(targets);
+        runner.stopVm(targets);
     }
 
     private static void updateCollector(UpdateType type, String... messages) {
