@@ -10,6 +10,7 @@ import software.amazon.awssdk.services.ec2.model.DescribeInstancesResponse;
 import software.amazon.awssdk.services.ec2.model.Instance;
 import software.amazon.awssdk.services.ec2.model.Reservation;
 import software.amazon.awssdk.services.ec2.model.Tag;
+import software.amazon.awssdk.services.ec2.model.TerminateInstancesRequest;
 
 public class AWSConnector {
 
@@ -66,5 +67,10 @@ public class AWSConnector {
         return nameTag.isPresent()
                 ? nameTag.get().value()
                 : "";
+    }
+
+    public void delete(String target) {
+        TerminateInstancesRequest request = TerminateInstancesRequest.builder().instanceIds(target).build();
+        ec2.terminateInstances(request);
     }
 }

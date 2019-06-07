@@ -10,13 +10,15 @@ public class DebugRunner {
         runner.setUpdateCollector(DebugRunner::updateCollector);
         runner.configure();
 
-        String[] targets = runner.getTargets( new ChaosEvent() {{
-            setDescription("Retrieve chaos-test-dummy instance id.");
+        // Demonstrates how to affect a subset of VMs out of a pool of matches.
+        ChaosEvent ev =  new ChaosEvent() {{
+            setDescription("Operate on chaos-test-dummy in AWS");
             setEngine("aws-ec2");
+            setOperation("not-used");
             setTarget(".*/chaos-test-dummy");
-        }});
-
-        updateCollector(UpdateType.INFO, targets);
+        }};
+        String[] targets = runner.getTargets(ev);
+        runner.deleteVm(targets);
     }
 
     private static void updateCollector(UpdateType type, String... messages) {

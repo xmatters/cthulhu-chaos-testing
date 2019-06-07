@@ -2,7 +2,10 @@ package com.xmatters.testing.aws;
 
 import java.util.Map;
 
+import software.amazon.awssdk.services.ec2.model.Ec2Exception;
+
 import com.xmatters.testing.cthulhu.api.annotations.EngineName;
+import com.xmatters.testing.cthulhu.api.annotations.OperationName;
 import com.xmatters.testing.cthulhu.api.eventrunner.ChaosEngine;
 import com.xmatters.testing.cthulhu.api.eventrunner.UpdateType;
 import com.xmatters.testing.cthulhu.api.scenario.ChaosEvent;
@@ -30,5 +33,17 @@ public class AmazonWebServicesChaosEngine extends ChaosEngine {
             this.sendUpdate(UpdateType.ERROR, "An error occurred while searching for instances.", e.toString());
         }
         return null;
+    }
+
+    @OperationName("delete")
+    public void deleteVm(String[] targets) {
+        for (String target : targets) {
+            this.sendUpdate(UpdateType.INFO, "Deleting instance:", target);
+            try {
+                connector.delete(target);
+            } catch (Ec2Exception e) {
+                this.sendUpdate(UpdateType.ERROR, e.toString());
+            }
+        }
     }
 }
