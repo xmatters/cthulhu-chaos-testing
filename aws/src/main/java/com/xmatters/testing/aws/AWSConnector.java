@@ -16,6 +16,8 @@ import software.amazon.awssdk.services.ec2.model.TerminateInstancesRequest;
 
 public class AWSConnector {
 
+    private static final int INSTANCE_RUNNING = 16;
+
     private Ec2Client ec2;
 
     public AWSConnector() {
@@ -35,7 +37,9 @@ public class AWSConnector {
         ArrayList<String> matches = new ArrayList<>();
         forEachInstance(instance -> {
             String zone = instance.placement().availabilityZone();
-            if (!zonePattern.matcher(zone).find() || !instancePattern.matcher(getNameTag(instance)).find()) {
+            if (!zonePattern.matcher(zone).find()
+                    || !instancePattern.matcher(getNameTag(instance)).find()
+                    || instance.state().code() != INSTANCE_RUNNING) {
                 return;
             }
 
