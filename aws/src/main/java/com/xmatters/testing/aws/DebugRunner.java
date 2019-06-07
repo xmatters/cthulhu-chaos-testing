@@ -19,7 +19,8 @@ public class DebugRunner {
         }};
         String[] targets = runner.getTargets(ev);
         // runner.deleteVm(targets);
-        runner.stopVm(targets);
+        // runner.stopVm(targets);
+        runner.resetVm(targets);
     }
 
     private static void updateCollector(UpdateType type, String... messages) {

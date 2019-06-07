@@ -41,6 +41,11 @@ public class AmazonWebServicesChaosEngine extends ChaosEngine {
         tryForEachTarget(targets, "Deleting instance:", target -> connector.delete(target));
     }
 
+    @OperationName("reset")
+    public void resetVm(String[] targets) {
+        tryForEachTarget(targets, "Resetting instance:", target -> connector.reset(target));
+    }
+
     @OperationName("stop")
     public void stopVm(String[] targets) {
         tryForEachTarget(targets, "Stopping instance:", target -> connector.stop(target));

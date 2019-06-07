@@ -8,6 +8,7 @@ import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.DescribeInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeInstancesResponse;
 import software.amazon.awssdk.services.ec2.model.Instance;
+import software.amazon.awssdk.services.ec2.model.RebootInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.Reservation;
 import software.amazon.awssdk.services.ec2.model.StopInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.Tag;
@@ -73,6 +74,11 @@ public class AWSConnector {
     public void delete(String target) {
         TerminateInstancesRequest request = TerminateInstancesRequest.builder().instanceIds(target).build();
         ec2.terminateInstances(request);
+    }
+
+    public void reset(String target) {
+        RebootInstancesRequest request = RebootInstancesRequest.builder().instanceIds(target).build();
+        ec2.rebootInstances(request);
     }
 
     public void stop(String target) {
