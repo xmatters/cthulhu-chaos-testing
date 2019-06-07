@@ -14,6 +14,12 @@ buildscript {
     }
 }
 
+tasks.whenTaskAdded {task ->
+    if(task.name.contains("license")) {
+        task.enabled = false
+    }
+}
+
 apply plugin: 'base'
 apply plugin: 'java'
 apply plugin: 'eclipse'

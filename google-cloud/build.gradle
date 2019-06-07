@@ -5,8 +5,6 @@ project.ext {
     isCthulhuModule = "true"
 }
 
-assert project.isCthulhuModule == "true"
-
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'publishing'
