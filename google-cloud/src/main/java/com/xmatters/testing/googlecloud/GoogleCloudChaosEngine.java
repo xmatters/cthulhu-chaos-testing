@@ -38,37 +38,32 @@ public class GoogleCloudChaosEngine extends ChaosEngine {
 
     @OperationName("delete")
     public void deleteVm(Instance[] targets) {
-        for (Instance t : targets) {
-            this.sendUpdate(UpdateType.INFO, "Deleting instance:", t.getName());
-            try {
-                connector.deleteInstance(t);
-            } catch (IOException e) {
-                this.sendUpdate(UpdateType.ERROR, e.toString());
-            }
-        }
+        tryForEachTarget(targets, "Deleting instance:", t -> connector.deleteInstance(t));
     }
 
     @OperationName("reset")
     public void resetVm(Instance[] targets) {
-        for (Instance t : targets) {
-            this.sendUpdate(UpdateType.INFO, "Resetting instance:", t.getName());
+        tryForEachTarget(targets, "Resetting instance:", t -> connector.resetInstance(t));
+    }
+
+    @OperationName("stop")
+    public void stopVm(Instance[] targets) {
+        tryForEachTarget(targets, "Stopping instance:", t -> connector.stopInstance(t));
+    }
+
+    private void tryForEachTarget(Instance[] targets, String message, ThrowingConsumer<Instance> action) {
+        for (Instance target : targets) {
+            this.sendUpdate(UpdateType.INFO, message, target.getName());
             try {
-                connector.resetInstance(t);
+                action.accept(target);
             } catch (IOException e) {
                 this.sendUpdate(UpdateType.ERROR, e.toString());
             }
         }
     }
 
-    @OperationName("stop")
-    public void stopVm(Instance[] targets) {
-        for (Instance t : targets) {
-            this.sendUpdate(UpdateType.INFO, "Stopping instance:", t.getName());
-            try {
-                connector.stopInstance(t);
-            } catch (IOException e) {
-                this.sendUpdate(UpdateType.ERROR, e.toString());
-            }
-        }
+    @FunctionalInterface
+    public interface ThrowingConsumer<T> {
+        void accept(T t) throws IOException;
     }
 }

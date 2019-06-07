@@ -6,7 +6,6 @@ import com.xmatters.testing.cthulhu.api.scenario.ChaosEvent;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 public class DebugRunner {
 
@@ -18,28 +17,22 @@ public class DebugRunner {
         // put("gcp.project", gcp-project-name");
     }};
 
-    private static final Map<String, ChaosEvent> chaosEvents = new HashMap<String, ChaosEvent>() {{
-        // Demonstrates how to affect a subset of VMs out of a pool of matches.
-        put("deleteRandomTestVms", new ChaosEvent() {{
-            setDescription("Deleting two random chaos-test-dummy");
-            setEngine("gcp-compute");
-            setOperation("delete");
-            setTarget(".*/chaos-test-dummy");
-            setQuantity(2);
-        }});
-    }};
-
     public static void main(String[] args) throws Exception {
         GoogleCloudChaosEngine runner = new GoogleCloudChaosEngine();
         runner.setConfiguration(CONFIG);
         runner.setUpdateCollector(DebugRunner::updateCollector);
         runner.configure();
 
-        Stream.of(args).forEach(eventName -> {
-            ChaosEvent ev = chaosEvents.getOrDefault(eventName, new ChaosEvent());
-            Instance[] targets = runner.getTargets(ev);
-            runner.stopVm(targets);
-        });
+        ChaosEvent ev = new ChaosEvent() {{
+            setDescription("Operate on chaos-test-dummy in GCP");
+            setEngine("gcp-compute");
+            setOperation("not-used");
+            setTarget(".*/chaos-test-dummy");
+        }};
+        Instance[] targets = runner.getTargets(ev);
+        // runner.deleteVm(targets);
+        // runner.stopVm(targets);
+        runner.resetVm(targets);
     }
 
     private static void updateCollector(UpdateType type, String... messages) {

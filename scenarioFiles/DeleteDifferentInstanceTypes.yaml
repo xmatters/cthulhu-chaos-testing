@@ -9,9 +9,9 @@ chaosevents:
     schedule:
       delay: 1s
       repeat: 60
-  - description: Deleting a chaos-test-dummy vm every four seconds.
+  - description: Deleting a cthulhu-target vm every four seconds.
     engine: gcp-compute
-    target: .*/chaos-test-dummy
+    target: .*/cthulhu-target
     operation: delete
     quantity: 1
     schedule:

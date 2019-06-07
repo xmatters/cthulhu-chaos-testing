@@ -96,7 +96,7 @@ public class CloudConnector {
             targets.addAll(matches);
         }
 
-        return targets.stream().toArray(Instance[]::new);
+        return targets.toArray(new Instance[0]);
     }
 
     public Operation deleteInstance(Instance instance) throws IOException {

@@ -1,8 +1,8 @@
 name: Delete random test vms
 description: Demonstrates how to affect a subset of VMs out of a pool of matches.
 chaosevents:
-  - description: Deleting two random chaos-test-dummy
+  - description: Deleting two random cthulhu-target
     engine: gcp-compute
-    target: .*/chaos-test-dummy
+    target: .*/cthulhu-target
     operation: delete
     quantity: 2
