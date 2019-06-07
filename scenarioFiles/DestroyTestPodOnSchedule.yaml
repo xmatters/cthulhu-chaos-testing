@@ -1,9 +1,9 @@
 name: Delete random test pods on a schedule
 description: Demonstrates the schedule feature of the CTT.  One event is run five times 15sec(±10sec) apart, after an initial 30sec(±10sec) delay.
 chaosevents:
-  - description: Deleting a chaos-test-dummy
+  - description: Deleting a cthulhu-pod-target
     engine: kubernetes
-    target: chaos-test/chaos-test-dummy
+    target: chaos-testing-demo/cthulhu-pod-target
     operation: delete
     quantity: 1
     schedule:

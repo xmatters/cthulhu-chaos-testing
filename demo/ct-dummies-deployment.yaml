@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: chaos-test-dummy
+  name: cthulhu-pod-target
   labels:
     app: busybox
     job-type: cthulhu

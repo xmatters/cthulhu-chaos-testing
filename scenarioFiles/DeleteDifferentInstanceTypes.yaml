@@ -1,9 +1,9 @@
 name: Delete different instance types
 description: Demonstrates how to define multiple chaos events.
 chaosevents:
-  - description: Deleting two random chaos-test-dummy pods every second.
+  - description: Deleting two random cthulhu-pod-target pods every second.
     engine: kubernetes
-    target: chaos-test/chaos-test-dummy
+    target: chaos-testing-demo/cthulhu-pod-target
     operation: delete
     quantity: 2
     schedule:

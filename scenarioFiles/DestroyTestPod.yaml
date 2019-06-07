@@ -1,8 +1,8 @@
 name: Delete random test pods
 description: Demonstrates how to affect a subset of Pods out of a pool of matches.
 chaosevents:
-  - description: Deleting two random chaos-test-dummy
+  - description: Deleting two random cthulhu-pod-target
     engine: kubernetes
-    target: chaos-test/chaos-test-dummy
+    target: chaos-testing-demo/cthulhu-pod-target
     operation: delete
     quantity: 2
