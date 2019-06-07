@@ -1,4 +1,6 @@
 # Cthulhu
+![Cthulhu](docs/img/Logo-Blue.png)
+
 Cthulhu is a Chaos Engineering tool that helps evaluating the resiliency of microservice systems.  It does that by simulating various disaster scenarios against a target infrastructure in a data-driven manner.
 
 ## Chaos Engineering
