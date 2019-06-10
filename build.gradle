@@ -59,6 +59,9 @@ dependencies {
     testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
 }
 
+configurations {
+    all*.exclude module : 'spring-boot-starter-logging'
+}
 classes.mustRunAfter(clean)
 
 bootRun {

@@ -68,7 +68,7 @@ public class ChaosEventHandler {
         targets = Arrays.copyOf(targets, list.size());
         targets = list.toArray(targets);
         if (targets.length < limit) {
-            log.warn("There are less target matches ({}) then the quantity specified ({}).", targets.length);
+            log.warn("There are less target matches ({}) then the quantity specified ({}).", targets.length, limit);
         }
 
         return targets;
