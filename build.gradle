@@ -14,6 +14,12 @@ buildscript {
     }
 }
 
+tasks.whenTaskAdded {task ->
+    if(task.name.contains("license")) {
+        task.enabled = false
+    }
+}
+
 apply plugin: 'base'
 apply plugin: 'java'
 apply plugin: 'eclipse'
@@ -35,6 +41,7 @@ repositories {
 
 dependencies {
     compile project(':api')
+    compile project(':aws')
     compile project(':google-cloud')
     compile project(':kubernetes')
     compile project(':slack-notifications')
@@ -53,6 +60,9 @@ dependencies {
     testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
 }
 
+configurations {
+    all*.exclude module : 'spring-boot-starter-logging'
+}
 classes.mustRunAfter(clean)
 
 bootRun {
