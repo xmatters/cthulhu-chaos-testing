@@ -1,5 +1,7 @@
 # Cthulhu
-Cthulhu is a Chaos Engineering tool that helps evaluating the resiliency of microservice systems.  It does that by simulating various chaos scenarios against a target infrastructure in a data-driven manner.
+![Cthulhu](docs/img/Logo-Blue.png)
+
+Cthulhu is a Chaos Engineering tool that helps evaluating the resiliency of microservice systems.  It does that by simulating various disaster scenarios against a target infrastructure in a data-driven manner.
 
 ## Chaos Engineering
 An ideal platform should be able to automatically detect failures and heal itself back to a normal state without any interruption of service.  Running chaos scenarios expose gaps in the self-healing ability of a platform.  Knowing about the short comings of the infrastruvcture allows engineering teams to become more efficient at recovering the system in the event of a disaster (either manually or by perfecting the self-healing features of the platform).
