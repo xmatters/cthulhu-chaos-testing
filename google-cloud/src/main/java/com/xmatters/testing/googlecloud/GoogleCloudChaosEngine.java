@@ -16,12 +16,12 @@ public class GoogleCloudChaosEngine extends ChaosEngine {
     private static final String TARGET_ZONE = "zone";
     private static final String TARGET_INSTANCE = "instance";
 
-    private CloudConnector connector;
+    private GCPConnector connector;
 
     @Override
     public void configure() throws Exception {
         super.configure();
-        connector = new CloudConnector(this);
+        connector = new GCPConnector(this);
     }
 
     @Override

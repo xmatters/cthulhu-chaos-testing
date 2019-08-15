@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class CloudConnector {
+public class GCPConnector {
 
     private static final String CONFIG_APP_NAME = "application.name";
     private static final String CONFIG_CREDENTIAL_PATH = "gcp.account.json";
@@ -38,7 +38,7 @@ public class CloudConnector {
     private Integer singletonLock = 0;
     private Compute client;
 
-    public CloudConnector(ModuleConfiguration config) throws Exception {
+    public GCPConnector(ModuleConfiguration config) throws Exception {
         applicationName = config.getConfigValue(CONFIG_APP_NAME);
         credentialFilePath = config.getConfigValue(CONFIG_CREDENTIAL_PATH);
         projectId = config.getConfigValue(CONFIG_PROJECT_ID);

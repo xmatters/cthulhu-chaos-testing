@@ -35,6 +35,7 @@ repositories {
 
 dependencies {
     compile project(':api')
+    compile project(':aws')
     compile project(':google-cloud')
     compile project(':kubernetes')
     compile project(':slack-notifications')

@@ -1,11 +1,11 @@
 # Cthulhu
-Cthulhu is a Chaos Engineering tool that helps evaluating the resiliency of microservice systems.  It does that by simulating various disaster scenarios against a target infrastructure in a data-driven manner.
+Cthulhu is a Chaos Engineering tool that helps evaluating the resiliency of microservice systems.  It does that by simulating various chaos scenarios against a target infrastructure in a data-driven manner.
 
 ## Chaos Engineering
-An ideal platform should be able to automatically detect failures and heal itself back to a normal state without any interruption of service.  Running disaster scenarios expose gaps in the self-healing ability of a platform.  Knowing about the short comings of the infrastruvcture allows engineering teams to become more efficient at recovering the system in the event of a disaster (either manually or by perfecting the self-healing features of the platform).
+An ideal platform should be able to automatically detect failures and heal itself back to a normal state without any interruption of service.  Running chaos scenarios expose gaps in the self-healing ability of a platform.  Knowing about the short comings of the infrastruvcture allows engineering teams to become more efficient at recovering the system in the event of a disaster (either manually or by perfecting the self-healing features of the platform).
 
 ## Running from Gradle
-The following command will run a given disaster scenario and output the log to the console.  See the module-specific 
+The following command will run a given chaos scenario and output the log to the console.  See the module-specific 
 instructions (below) on how to configure the container for them.  To specify re-usable configurations for Cthulhu, copy 
 `./src/main/resources/application-overrides-template.properties` as `./src/main/resources/application-overrides.properties` 
 1. `./gradlew bootRun < <path-to-scenario>`
@@ -16,7 +16,7 @@ the jar file.
 2. `docker build -t cthulhu .`
 
 ## Running from Docker 
-The following command will run a given disaster scenario in a docker container, output the log to the console, and clean-up the container once the 
+The following command will run a given chaos scenario in a docker container, output the log to the console, and clean-up the container once the 
 process has completed.  See the module-specific instructions (below) on how to configure the container for them.
 ```bash
    docker run -it --rm \
@@ -28,7 +28,7 @@ process has completed.  See the module-specific instructions (below) on how to c
 Environment variables can be used to define/overwrite configuration values using the following pattern 
 `ABC_DEF --> abc.def`.
 
-## Disaster Scenarios
+## Chaos Scenarios
 Cthulhu executes Scenario files that contain a list of Chaos Events.  The Scenario files are in YAML format.  The 
 following show the usage of all shared fields.  Refer to module-specific instructions for Chaos Events.
 
@@ -53,7 +53,24 @@ following show the usage of all shared fields.  Refer to module-specific instruc
 
 ## Global Configuration
 * `cthulhu.event.timeout.default` — Default delay before cancelling Chaos Events.
-  
+    
+## Amazon Web Services Configuration
+There is no configuration specific to AWS in Cthulhu. [Configure the AWS console](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration)
+with the account that will run chaos events.
+
+#### AWS Chaos Events
+* `engine` — Set to `aws-ec2`.
+* `target` — Follows this pattern: `<zone>/<vm-name-tag>`.  Both Zone and VM Name supports regular expressions. Only VMs in the running state are considered for targets.
+
+**Delete VMs**
+* `operation` — Set to `delete`.
+
+**Reset VMs**
+* `operation` — Set to `reset`.
+
+**Stop Vms**
+* `operation` — Set to `stop`.
+
 ## Google Cloud Configuration
 * `gcp.account.json` — Path to a Google Cloud credential file.
   * [How to create a Google Cloud Service Account](https://cloud.google.com/iam/docs/creating-managing-service-accounts).
