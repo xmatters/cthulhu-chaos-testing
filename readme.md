@@ -97,7 +97,7 @@ with the account that will run chaos events.
 * `operation` — Set to `stop`.
    
 ## Kubernetes Configuration
-* `kube.config` — Path to a Kubernetes config.  This is generally `~/.kube/config` for the current user.  
+* `kube.config` — Path to a Kubernetes config.  By default, Cthulhu looks for the config file of the the current user `~/.kube/config` and uses the current context.
   * [How get a K8s context for the Google Cloud Kubernetes Engine](https://cloud.google.com/kubernetes-engine/docs/quickstart).
   * To interact with containers, your service account must have the `Kubernetes Engine Admin` role.
     
