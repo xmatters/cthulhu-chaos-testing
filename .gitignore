@@ -2,6 +2,7 @@
 .gradle
 out/
 build/
+bin/
 docker/
 *.log
 !gradle/wrapper/gradle-wrapper.jar
