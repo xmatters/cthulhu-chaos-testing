@@ -6,6 +6,12 @@ Cthulhu is a Chaos Engineering tool that helps evaluating the resiliency of micr
 ## Chaos Engineering
 An ideal platform should be able to automatically detect failures and heal itself back to a normal state without any interruption of service.  Running chaos scenarios expose gaps in the self-healing ability of a platform.  Knowing about the short comings of the infrastruvcture allows engineering teams to become more efficient at recovering the system in the event of a disaster (either manually or by perfecting the self-healing features of the platform).
 
+## System Requirements
+System Requirements will differ depending on the method you wish to use Cthulhu.
+
+If running from docker you will need >Docker 17.05
+If running from gradle you will need Java8
+
 ## Running from Gradle
 The following command will run a given chaos scenario and output the log to the console.  See the module-specific 
 instructions (below) on how to configure the container for them.  To specify re-usable configurations for Cthulhu, copy 
@@ -13,9 +19,7 @@ instructions (below) on how to configure the container for them.  To specify re-
 1. `./gradlew bootRun < <path-to-scenario>`
 
 ## Building the Docker Image
-1. `./gradlew prepareDocker -Penvironment=docker` — environment=docker excludes the application-overrides.properties from 
-the jar file.
-2. `docker build -t cthulhu .`
+1. `docker build -t cthulhu .`
 
 ## Running from Docker 
 The following command will run a given chaos scenario in a docker container, output the log to the console, and clean-up the container once the 
