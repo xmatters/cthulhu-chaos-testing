@@ -1,5 +1,5 @@
 # Cthulhu
-![Cthulhu](docs/img/Logo-Blue.png)
+![Cthulhu](https://github.com/xmatters/cthulhu-chaos-testing/raw/master/docs/img/Logo-Blue.png)
 
 Cthulhu is a Chaos Engineering tool that helps evaluating the resiliency of microservice systems.  It does that by simulating various disaster scenarios against a target infrastructure in a data-driven manner.
 
@@ -18,16 +18,13 @@ instructions (below) on how to configure the container for them.  To specify re-
 `./src/main/resources/application-overrides-template.properties` as `./src/main/resources/application-overrides.properties` 
 1. `./gradlew bootRun < <path-to-scenario>`
 
-## Building the Docker Image
-1. `docker build -t cthulhu .`
-
 ## Running from Docker 
 The following command will run a given chaos scenario in a docker container, output the log to the console, and clean-up the container once the 
 process has completed.  See the module-specific instructions (below) on how to configure the container for them.
 ```bash
    docker run -it --rm \
    -v <path-to-scenario>:/etc/cthulhu/scenario.yaml \
-   cthulhu
+   xmattersinc/cthulhu
 ```
 
 #### Environment variable mapping
